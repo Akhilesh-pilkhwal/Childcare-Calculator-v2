@@ -404,3 +404,9 @@ div:hover > .iconRound.animated:before {
 .no_opvang {
 	display: none;
 }
+.btn.btn-primary, .iconRound {
+    background-color: #ff6766;
+}
+.pull-right {
+    float: right;
+}
