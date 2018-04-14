@@ -1,0 +1,24 @@
+{
+  "name": "chidcare-calculator-v2",
+  "version": "1.0.0",
+  "description": "This application is all about calculating the net childcare cost on basis of certain parameters given.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akhilesh-pilkhwal/Childcare-Calculator-v2.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "webpack"
+  ],
+  "author": "Akhilesh singh pilkhwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akhilesh-pilkhwal/Childcare-Calculator-v2/issues"
+  },
+  "homepage": "https://github.com/Akhilesh-pilkhwal/Childcare-Calculator-v2#readme"
+}
