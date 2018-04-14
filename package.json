@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/Akhilesh-pilkhwal/Childcare-Calculator-v2/issues"
   },
-  "homepage": "https://github.com/Akhilesh-pilkhwal/Childcare-Calculator-v2#readme"
+  "homepage": "https://github.com/Akhilesh-pilkhwal/Childcare-Calculator-v2#readme",
+  "dependencies": {
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
+  }
 }
