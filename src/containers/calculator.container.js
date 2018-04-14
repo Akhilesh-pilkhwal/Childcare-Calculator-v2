@@ -1,7 +1,7 @@
 import React from "react";
 import SelectInput from "../components/common/SelectInput";
 import ChildcareDetails from "../components/childcaredetails.component";
-import { INITIAL_DATA } from '../constants/initialState';
+import { INITIAL_DATA , INITIAL_INCOME ,INITIAL_WORKING_HOURS ,INITIAL_CHILD_AGE } from '../constants/initialState';
 export class ManageCalculatorPage extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -9,48 +9,12 @@ export class ManageCalculatorPage extends React.Component {
     this.state = {
       childCareOptions: INITIAL_DATA,
       selectedIncome: "18176",
-      selectedWorkingHours: "0",
+      selectedWorkingHours: "9",
       selectedKidsAge: "",
       childs: [],
-      incomes: [
-        {
-          value: "18176",
-          text: "€ 18.176 of minder"
-        },
-        {
-          value: "19386",
-          text: "€ 18.177 - € 19.386"
-        }
-      ],
-      kidsages: [
-        {
-          value: "0",
-          text: "0 years"
-        },
-        {
-          value: "1",
-          text: "1 years"
-        }
-      ],
-
-      workinghours: [
-        {
-          value: "0",
-          text: "0 hours a week"
-        },
-        {
-          value: "1",
-          text: "1 hours a week"
-        },
-        {
-          value: "2",
-          text: "2 hours a week"
-        },
-        {
-          value: "3",
-          text: "3 hours a week"
-        }
-      ]
+      incomes: INITIAL_INCOME,
+      kidsages:INITIAL_CHILD_AGE,
+      workinghours: INITIAL_WORKING_HOURS
     };
     this.handleIncomeChange = this.handleIncomeChange.bind(this);
     this.handleworkinghoursChange = this.handleworkinghoursChange.bind(this);
@@ -60,6 +24,7 @@ export class ManageCalculatorPage extends React.Component {
     this.handleSchoolChange = this.handleSchoolChange.bind(this);
     this.handleChildcareChange = this.handleChildcareChange.bind(this);
     this.addMoreChild = this.addMoreChild.bind(this);
+    this.removeOneChild = this.removeOneChild.bind(this);
   }
 
   handleIncomeChange(e) {
@@ -128,7 +93,6 @@ export class ManageCalculatorPage extends React.Component {
     });
   }
   addMoreChild() {
-    debugger
     let childCareOptions = this.state.childCareOptions.slice();
     let data = {
       selectedlocation: "",
@@ -138,6 +102,11 @@ export class ManageCalculatorPage extends React.Component {
     }
     childCareOptions.push(data)
     this.setState({ childCareOptions: childCareOptions });
+  }
+  removeOneChild(Element, index){
+    let currentData=this.state.childCareOptions.slice()
+    currentData.splice(index,1);
+    this.setState({childCareOptions:currentData});
   }
   render() {
     const morechilds = this.state.childs.map((Element, index) => {
@@ -228,6 +197,7 @@ export class ManageCalculatorPage extends React.Component {
                                 selectedSchool={this.state.childCareOptions[index].selectedSchool}
                                 selectedtypeofcare={this.state.childCareOptions[index].selectedtypeofcare}
                                 dataIndex={index}
+                                removeOneChild={this.removeOneChild}
                               />
                             </div>
                           )}

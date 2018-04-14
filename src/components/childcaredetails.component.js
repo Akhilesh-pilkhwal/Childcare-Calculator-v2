@@ -9,12 +9,13 @@ const ChildCareComponent = ({
   handleSchoolChange,
   selectedSchool,
   handleChildcareChange,
+  removeOneChild,
   dataIndex
 }) => {
   return (
     <div className="fr_opvang" data-uren-maand="0" data-opvangobjid="99336082">
       <div className="fr_opvang_inner">
-        {dataIndex >0 ?<span className="pull-right verwijderOpvang iconRound" title="Delete childcare"><i className="fa fa-remove"></i></span>:''}
+        {dataIndex >0 ?<span onClick={(e) => removeOneChild(e,dataIndex)} className="pull-right verwijderOpvang iconRound" title="Delete childcare"><i className="fa fa-remove"></i></span>:''}
         <p>Childcare</p>
         <div
           className="stapSelect stapSelect_locatie"
@@ -101,6 +102,7 @@ ChildCareComponent.propTypes = {
   selectedtypeofcare: PropTypes.string,
   handleSchoolChange: PropTypes.func,
   selectedSchool: PropTypes.string,
-  handleChildcareChange: PropTypes.func
+  handleChildcareChange: PropTypes.func,
+  removeOneChild: PropTypes.func
 };
 export default ChildCareComponent;
