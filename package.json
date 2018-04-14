@@ -4,7 +4,9 @@
   "description": "This application is all about calculating the net childcare cost on basis of certain parameters given.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "babel-node tools/startMessage.js",
+    "start": "babel-node tools/srcServer.js"
   },
   "repository": {
     "type": "git",
@@ -31,8 +33,12 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-register": "^6.26.0",
+    "colors": "1.1.2",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "open": "0.0.5",
+    "express": "4.16.0",
+    "eventsource-polyfill": "0.9.6",
     "webpack": "3.8.1",
     "webpack-dev-middleware": "1.12.1",
     "webpack-hot-middleware": "2.21.0"
