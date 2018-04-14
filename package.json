@@ -22,6 +22,15 @@
   },
   "homepage": "https://github.com/Akhilesh-pilkhwal/Childcare-Calculator-v2#readme",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-react-display-name": "^2.0.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-register": "^6.26.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1"
   }
