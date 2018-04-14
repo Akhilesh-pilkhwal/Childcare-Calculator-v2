@@ -1,18 +1,16 @@
 import React from "react";
 import SelectInput from "../components/common/SelectInput";
 import ChildcareDetails from "../components/childcaredetails.component";
+import { INITIAL_DATA } from '../constants/initialState';
 export class ManageCalculatorPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
+      childCareOptions: INITIAL_DATA,
       selectedIncome: "18176",
       selectedWorkingHours: "0",
       selectedKidsAge: "",
-      selectedlocation: "",
-      selectedSchool: "",
-      selectedChildcare: "",
-      selectedtypeofcare: "",
       childs: [],
       incomes: [
         {
@@ -79,62 +77,71 @@ export class ManageCalculatorPage extends React.Component {
       selectedKidsAge: e.target.value
     });
   }
-  handleLocationChange(e) {
+  handleLocationChange(e,index) {
+    debugger
+    let currentData=this.state.childCareOptions.slice();
+    currentData[index].selectedlocation=e.target.value;
     this.setState({
-      selectedlocation: e.target.value
+      childCareOptions: currentData
     });
     if (e.target.value === "0") {
+      currentData[index].selectedtypeofcare=0;
+      currentData[index].selectedSchool=0;
+      currentData[index].selectedChildcare=0;
       this.setState({
-        selectedtypeofcare: 0,
-        selectedSchool: 0,
-        selectedChildcare: 0
+        childCareOptions:currentData
       });
     }
   }
-  handleSchoolChange(e) {
+  handleSchoolChange(e,index) {
+    let currentData=this.state.childCareOptions.slice();
+    currentData[index].selectedSchool=e.target.value;
     this.setState({
-      selectedSchool: e.target.value
+      childCareOptions: currentData
     });
     if (e.target.value === "0") {
+      currentData[index].selectedChildcare=0;
       this.setState({
-        selectedChildcare: 0
+        childCareOptions:currentData
       });
     }
   }
-  handleTypeOfCareChange(e) {
+  handleTypeOfCareChange(e,index) {
+    let currentData=this.state.childCareOptions.slice();
+    currentData[index].selectedtypeofcare=e.target.value;
     this.setState({
-      selectedtypeofcare: e.target.value
+      childCareOptions:currentData
     });
     if (e.target.value === "0") {
+      currentData[index].selectedSchool=0;
+      currentData[index].selectedChildcare=0;
       this.setState({
-        selectedSchool: 0,
-        selectedChildcare: 0
+        childCareOptions:currentData
       });
     }
   }
-  handleChildcareChange(e) {
+  handleChildcareChange(e,index) {
+    let currentData=this.state.childCareOptions.slice();
+    currentData[index].selectedChildcare=e.target.value;
     this.setState({
-      selectedChildcare: e.target.value
+      childCareOptions:currentData
     });
   }
   addMoreChild() {
-    const childs = this.state.childs.concat(ChildcareDetails);
-    this.setState({ childs });
+    debugger
+    let childCareOptions = this.state.childCareOptions.slice();
+    let data = {
+      selectedlocation: "",
+      selectedSchool: "",
+      selectedChildcare: "",
+      selectedtypeofcare: ""
+    }
+    childCareOptions.push(data)
+    this.setState({ childCareOptions: childCareOptions });
   }
   render() {
     const morechilds = this.state.childs.map((Element, index) => {
-      return `<ChildcareDetails
-      handleChildcareChange={this.handleChildcareChange}
-      handleSchoolChange={this.handleSchoolChange}
-      handleLocationChange={this.handleLocationChange}
-      handleTypeOfCareChange={
-        this.handleTypeOfCareChange
-      }
-      selectedChildcare={this.state.selectedChildcare}
-      selectedlocation={this.state.selectedlocation}
-      selectedSchool={this.state.selectedSchool}
-      selectedtypeofcare={this.state.selectedtypeofcare}
-    />`;
+      return (<Element key={index} value={index} />)
     });
     return (
       <div id="container">
@@ -209,22 +216,23 @@ export class ManageCalculatorPage extends React.Component {
                           />
                         </div>
                         <div className="fr_kind_opvangtypes_wrap">
-                          <div className="fr_kind_opvangtypes">
-                            <ChildcareDetails
-                              handleChildcareChange={this.handleChildcareChange}
-                              handleSchoolChange={this.handleSchoolChange}
-                              handleLocationChange={this.handleLocationChange}
-                              handleTypeOfCareChange={
-                                this.handleTypeOfCareChange
-                              }
-                              selectedChildcare={this.state.selectedChildcare}
-                              selectedlocation={this.state.selectedlocation}
-                              selectedSchool={this.state.selectedSchool}
-                              selectedtypeofcare={this.state.selectedtypeofcare}
-                            />
-                          </div>
-                        </div>
-                        <span
+                          {this.state.childCareOptions.map((child, index) =>
+                            <div className="fr_kind_opvangtypes">
+                              <ChildcareDetails
+                                handleChildcareChange={this.handleChildcareChange}
+                                handleSchoolChange={this.handleSchoolChange}
+                                handleLocationChange={this.handleLocationChange}
+                                handleTypeOfCareChange={this.handleTypeOfCareChange}
+                                selectedChildcare={this.state.childCareOptions[index].selectedChildcare}
+                                selectedlocation={this.state.childCareOptions[index].selectedlocation}
+                                selectedSchool={this.state.childCareOptions[index].selectedSchool}
+                                selectedtypeofcare={this.state.childCareOptions[index].selectedtypeofcare}
+                                dataIndex={index}
+                              />
+                            </div>
+                          )}
+                          {/* {morechilds} */}
+                          <span
                           className="link voegOpvangToe"
                           onClick={this.addMoreChild}
                         >
@@ -233,6 +241,7 @@ export class ManageCalculatorPage extends React.Component {
                           </span>{" "}
                           Add another childcare
                         </span>
+                        </div>
                       </div>
                     </div>
                   </div>

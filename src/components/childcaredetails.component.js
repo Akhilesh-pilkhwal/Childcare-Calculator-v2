@@ -8,7 +8,8 @@ const ChildCareComponent = ({
   selectedtypeofcare,
   handleSchoolChange,
   selectedSchool,
-  handleChildcareChange
+  handleChildcareChange,
+  dataIndex
 }) => {
   return (
     <div className="fr_opvang" data-uren-maand="0" data-opvangobjid="99336082">
@@ -23,7 +24,7 @@ const ChildCareComponent = ({
           <select
             name="locatie"
             className="stap stap_locatie count_2"
-            onChange={handleLocationChange}
+            onChange={(e) => handleLocationChange(e,dataIndex)}
           >
             <option value="0">- Select Location -</option>
             <option value="Zaandam">Zaandam</option>
@@ -40,7 +41,7 @@ const ChildCareComponent = ({
             <select
               name="soortopvang"
               className="stap stap_soortopvang count_3"
-              onChange={handleTypeOfCareChange}
+              onChange={(e) => handleTypeOfCareChange(e,dataIndex)}
             >
               <option value="0">- Select Type of care -</option>
               <option value="Daycare">Daycare</option>
@@ -56,7 +57,7 @@ const ChildCareComponent = ({
           <div
             className="stapSelect stapSelect_school"
             style={{ display: "block" }}
-            onChange={handleSchoolChange}
+            onChange={(e) => handleSchoolChange(e,dataIndex)}
           >
             <div className="stapLabel hidden">school:</div>
 
@@ -75,7 +76,7 @@ const ChildCareComponent = ({
           <div
             className="stapSelect stapSelect_opvang"
             style={{ display: "block" }}
-            onChange={handleChildcareChange}
+            onChange={(e) => handleChildcareChange(e,dataIndex)}
           >
             <div className="stapLabel hidden">opvang:</div>
 
