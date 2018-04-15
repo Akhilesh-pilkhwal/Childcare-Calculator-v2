@@ -1,7 +1,7 @@
 import React from "react";
 import SelectInput from "../components/common/SelectInput";
 import ChildcareDetails from "../components/childcaredetails.component";
-import { INITIAL_DATA , INITIAL_INCOME ,INITIAL_WORKING_HOURS ,INITIAL_CHILD_AGE } from '../constants/initialState';
+import { INITIAL_DATA, INITIAL_INCOME, INITIAL_WORKING_HOURS, INITIAL_CHILD_AGE } from '../constants/initialState';
 export class ManageCalculatorPage extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -13,7 +13,7 @@ export class ManageCalculatorPage extends React.Component {
       selectedKidsAge: "",
       childs: [],
       incomes: INITIAL_INCOME,
-      kidsages:INITIAL_CHILD_AGE,
+      kidsages: INITIAL_CHILD_AGE,
       workinghours: INITIAL_WORKING_HOURS
     };
     this.handleIncomeChange = this.handleIncomeChange.bind(this);
@@ -25,6 +25,7 @@ export class ManageCalculatorPage extends React.Component {
     this.handleChildcareChange = this.handleChildcareChange.bind(this);
     this.addMoreChild = this.addMoreChild.bind(this);
     this.removeOneChild = this.removeOneChild.bind(this);
+    this.calculateNetCost = this.calculateNetCost.bind(this);
   }
 
   handleIncomeChange(e) {
@@ -37,59 +38,70 @@ export class ManageCalculatorPage extends React.Component {
       selectedWorkingHours: e.target.value
     });
   }
-  handlekidsageChange(e) {
+  handlekidsageChange(e, index) {
     this.setState({
-      selectedKidsAge: e.target.value
+      selectedKidsAge: e.target.value,
+    });
+    let currentData = this.state.childCareOptions
+    for (let i = 0; i < currentData.length; i++) {
+      currentData[i].selectedlocation = "0";
+      currentData[i].selectedtypeofcare = "0";
+      currentData[i].selectedSchool = "0";
+      currentData[i].selectedChildcare = "0";
+    }
+
+    this.setState({
+      childCareOptions: currentData
     });
   }
-  handleLocationChange(e,index) {
+  handleLocationChange(e, index) {
     debugger
-    let currentData=this.state.childCareOptions.slice();
-    currentData[index].selectedlocation=e.target.value;
+    let currentData = this.state.childCareOptions.slice();
+    currentData[index].selectedlocation = e.target.value;
     this.setState({
       childCareOptions: currentData
     });
     if (e.target.value === "0") {
-      currentData[index].selectedtypeofcare=0;
-      currentData[index].selectedSchool=0;
-      currentData[index].selectedChildcare=0;
+      currentData[index].selectedtypeofcare = 0;
+      currentData[index].selectedSchool = 0;
+      currentData[index].selectedChildcare = 0;
       this.setState({
-        childCareOptions:currentData
+        childCareOptions: currentData
       });
     }
   }
-  handleSchoolChange(e,index) {
-    let currentData=this.state.childCareOptions.slice();
-    currentData[index].selectedSchool=e.target.value;
+  handleSchoolChange(e, index) {
+    let currentData = this.state.childCareOptions.slice();
+    currentData[index].selectedSchool = e.target.value;
     this.setState({
       childCareOptions: currentData
     });
     if (e.target.value === "0") {
-      currentData[index].selectedChildcare=0;
+      currentData[index].selectedChildcare = 0;
       this.setState({
-        childCareOptions:currentData
+        childCareOptions: currentData
       });
     }
   }
-  handleTypeOfCareChange(e,index) {
-    let currentData=this.state.childCareOptions.slice();
-    currentData[index].selectedtypeofcare=e.target.value;
+  handleTypeOfCareChange(e, index) {
+    let currentData = this.state.childCareOptions.slice();
+    currentData[index].selectedtypeofcare = e.target.value;
     this.setState({
-      childCareOptions:currentData
+      childCareOptions: currentData
     });
     if (e.target.value === "0") {
-      currentData[index].selectedSchool=0;
-      currentData[index].selectedChildcare=0;
+      currentData[index].selectedSchool = 0;
+      currentData[index].selectedChildcare = 0;
       this.setState({
-        childCareOptions:currentData
+        childCareOptions: currentData
       });
     }
   }
-  handleChildcareChange(e,index) {
-    let currentData=this.state.childCareOptions.slice();
-    currentData[index].selectedChildcare=e.target.value;
+  handleChildcareChange(e, index) {
+    let currentData = this.state.childCareOptions.slice();
+    currentData[index].selectedChildcare = e.target.value;
     this.setState({
-      childCareOptions:currentData
+      childCareOptions: currentData
     });
   }
   addMoreChild() {
@@ -103,10 +115,13 @@ export class ManageCalculatorPage extends React.Component {
     childCareOptions.push(data)
     this.setState({ childCareOptions: childCareOptions });
   }
-  removeOneChild(Element, index){
-    let currentData=this.state.childCareOptions.slice()
-    currentData.splice(index,1);
-    this.setState({childCareOptions:currentData});
+  removeOneChild(Element, index) {
+    let currentData = this.state.childCareOptions.slice()
+    currentData.splice(index, 1);
+    this.setState({ childCareOptions: currentData });
+  }
+  calculateNetCost() {
+    console.log(this.state);
   }
   render() {
     const morechilds = this.state.childs.map((Element, index) => {
@@ -186,8 +201,9 @@ export class ManageCalculatorPage extends React.Component {
                         </div>
                         <div className="fr_kind_opvangtypes_wrap">
                           {this.state.childCareOptions.map((child, index) =>
-                            <div className="fr_kind_opvangtypes">
+                            <div key={index} className="fr_kind_opvangtypes">
                               <ChildcareDetails
+                                selectedKidsAge={this.state.selectedKidsAge}
                                 handleChildcareChange={this.handleChildcareChange}
                                 handleSchoolChange={this.handleSchoolChange}
                                 handleLocationChange={this.handleLocationChange}
@@ -203,13 +219,13 @@ export class ManageCalculatorPage extends React.Component {
                           )}
                           {/* {morechilds} */}
                           <span
-                          className="link voegOpvangToe"
-                          onClick={this.addMoreChild}
-                        >
-                          <span className="iconRound large animated">
-                            <span className="icon">+</span>
-                          </span>{" "}
-                          Add another childcare
+                            className="link voegOpvangToe"
+                            onClick={this.addMoreChild}
+                          >
+                            <span className="iconRound large animated">
+                              <span className="icon">+</span>
+                            </span>{" "}
+                            Add another childcare
                         </span>
                         </div>
                       </div>
@@ -217,10 +233,15 @@ export class ManageCalculatorPage extends React.Component {
                   </div>
                 </div>
               </div>
+
             </form>
           </div>
         </div>
+        <div className="calculate_btn_div">
+          <span className="btn btn-primary berekenen" onClick={this.calculateNetCost}><i className="fa fa-calculator"></i><span style={{ verticalAlign: "inherit" }}><span style={{ verticalAlign: "inherit" }}> Calculate Net childcare costs</span></span></span>
+        </div>
       </div>
+
     );
   }
 }

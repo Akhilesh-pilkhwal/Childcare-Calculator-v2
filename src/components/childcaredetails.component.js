@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ChildCareComponent = ({
+  selectedKidsAge,
   handleLocationChange,
   selectedlocation,
   handleTypeOfCareChange,
@@ -17,6 +18,8 @@ const ChildCareComponent = ({
       <div className="fr_opvang_inner">
         {dataIndex >0 ?<span onClick={(e) => removeOneChild(e,dataIndex)} className="pull-right verwijderOpvang iconRound" title="Delete childcare"><i className="fa fa-remove"></i></span>:''}
         <p>Childcare</p>
+        {selectedKidsAge === "1" || selectedKidsAge === "2" || selectedKidsAge === "3"? 
+        <div>
         <div
           className="stapSelect stapSelect_locatie"
           style={{ display: "block" }}
@@ -91,6 +94,9 @@ const ChildCareComponent = ({
         ) : (
           ""
         )}
+        </div> :
+      <div className="alert selecteer_leeftijd"><span style={{verticalAlign: 'inherit'}}><span style={{verticalAlign: 'inherit'}}>First select the age of the child</span></span></div>
+      }
       </div>
     </div>
   );
@@ -103,6 +109,7 @@ ChildCareComponent.propTypes = {
   handleSchoolChange: PropTypes.func,
   selectedSchool: PropTypes.string,
   handleChildcareChange: PropTypes.func,
-  removeOneChild: PropTypes.func
+  removeOneChild: PropTypes.func,
+  selectedKidsAge:PropTypes.string
 };
 export default ChildCareComponent;
