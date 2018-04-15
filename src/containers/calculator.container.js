@@ -55,7 +55,6 @@ export class ManageCalculatorPage extends React.Component {
     });
   }
   handleLocationChange(e, index) {
-    debugger
     let currentData = this.state.childCareOptions.slice();
     currentData[index].selectedlocation = e.target.value;
     this.setState({
@@ -122,6 +121,14 @@ export class ManageCalculatorPage extends React.Component {
   }
   calculateNetCost() {
     console.log(this.state);
+    let validateForm=this.state.childCareOptions.filter(x=>(x.selectedlocation !== "0"
+                                                                &&x.selectedlocation!==""
+                                                                &&x.selectedSchool!=="0"
+                                                                &&x.selectedtypeofcare!=="0"
+                                                                &&x.selectedChildcare!=="0"));
+   if(validateForm.length === 0){
+     alert("please fill required fields");
+   }
   }
   render() {
     const morechilds = this.state.childs.map((Element, index) => {
