@@ -1,7 +1,7 @@
 import React from "react";
 import SelectInput from "../components/common/SelectInput";
 import ChildcareDetails from "../components/childcaredetails.component";
-import { INITIAL_DATA, INITIAL_INCOME, INITIAL_WORKING_HOURS, INITIAL_CHILD_AGE } from '../constants/initialState';
+import { INITIAL_DATA, INITIAL_INCOME, INITIAL_WORKING_HOURS, INITIAL_CHILD_AGE ,WEEK_DATA } from '../constants/initialState';
 export class ManageCalculatorPage extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -14,7 +14,8 @@ export class ManageCalculatorPage extends React.Component {
       childs: [],
       incomes: INITIAL_INCOME,
       kidsages: INITIAL_CHILD_AGE,
-      workinghours: INITIAL_WORKING_HOURS
+      workinghours: INITIAL_WORKING_HOURS,
+      weekData:WEEK_DATA
     };
     this.handleIncomeChange = this.handleIncomeChange.bind(this);
     this.handleworkinghoursChange = this.handleworkinghoursChange.bind(this);
@@ -26,6 +27,7 @@ export class ManageCalculatorPage extends React.Component {
     this.addMoreChild = this.addMoreChild.bind(this);
     this.removeOneChild = this.removeOneChild.bind(this);
     this.calculateNetCost = this.calculateNetCost.bind(this);
+    this.onWeekDayChange = this.onWeekDayChange.bind(this);
   }
 
   handleIncomeChange(e) {
@@ -109,7 +111,8 @@ export class ManageCalculatorPage extends React.Component {
       selectedlocation: "",
       selectedSchool: "",
       selectedChildcare: "",
-      selectedtypeofcare: ""
+      selectedtypeofcare: "",
+      weekData: WEEK_DATA
     }
     childCareOptions.push(data)
     this.setState({ childCareOptions: childCareOptions });
@@ -129,6 +132,14 @@ export class ManageCalculatorPage extends React.Component {
    if(validateForm.length === 0){
      alert("please fill required fields");
    }
+  }
+  onWeekDayChange(e,index,dataIndex) {
+    let currentData=this.state.childCareOptions.slice();
+    currentData[dataIndex].weekData[index].checked=!currentData[dataIndex].weekData[index].checked;
+    // currentData[index].selectedChildcare=e.target.value;
+    this.setState({
+      childCareOptions:currentData
+    });
   }
   render() {
     const morechilds = this.state.childs.map((Element, index) => {
@@ -221,6 +232,8 @@ export class ManageCalculatorPage extends React.Component {
                                 selectedtypeofcare={this.state.childCareOptions[index].selectedtypeofcare}
                                 dataIndex={index}
                                 removeOneChild={this.removeOneChild}
+                                weekOptions={this.state.childCareOptions[index].weekData}
+                                onWeekDayChange={this.onWeekDayChange}
                               />
                             </div>
                           )}

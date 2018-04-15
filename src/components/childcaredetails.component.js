@@ -11,7 +11,10 @@ const ChildCareComponent = ({
   selectedSchool,
   handleChildcareChange,
   removeOneChild,
-  dataIndex
+  dataIndex,
+  selectedChildcare,
+  weekOptions,
+  onWeekDayChange
 }) => {
   return (
     <div className="fr_opvang" data-uren-maand="0" data-opvangobjid="99336082">
@@ -94,7 +97,20 @@ const ChildCareComponent = ({
         ) : (
           ""
         )}
-        </div> :
+        {selectedlocation != 0 &&
+        selectedtypeofcare != 0 &&
+        selectedSchool != 0 &&
+        selectedChildcare != 0 ?
+        <div>
+          {weekOptions.map((val,index) => 
+            <div className="checkbox" key={index}>
+              <label><input type="checkbox" value="" checked={val.checked} onChange={(e) => onWeekDayChange(e,index,dataIndex)}/>{val.day}</label>
+              <label style={{float:'right'}}>{val.label}</label>
+            </div>
+          )}
+        </div>
+        :null}
+         </div> :
       <div className="alert selecteer_leeftijd"><span style={{verticalAlign: 'inherit'}}><span style={{verticalAlign: 'inherit'}}>First select the age of the child</span></span></div>
       }
       </div>

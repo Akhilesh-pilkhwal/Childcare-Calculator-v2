@@ -2,7 +2,37 @@ export const INITIAL_DATA = [{
   selectedlocation: "",
   selectedSchool: "",
   selectedChildcare: "",
-  selectedtypeofcare: ""
+  selectedtypeofcare: "",
+  weekData: [{
+    label: '4.50 hr',
+    day: 'Monday',
+    checked: false,
+    value: 4.50,
+  },
+  {
+    label: '4.50 hr',
+    day: 'Tuesday',
+    checked: false,
+    value: 4.50,
+  },
+  {
+    label: '4.50 hr',
+    day: 'Wednesday',
+    checked: false
+  },
+  {
+    label: '4.50 hr',
+    day: 'Thursday',
+    checked: false,
+    value: 4.50,
+  },
+  {
+    label: '6.75 hr',
+    day: 'Friday',
+    checked: false,
+    value: 6.75,
+  },
+]
 }]
 
 export const INITIAL_INCOME = [
@@ -145,4 +175,32 @@ export const INITIAL_CHILD_AGE =  [
     value: "3",
     text: "3 years"
   }
+]
+
+
+export const WEEK_DATA = [{
+  label: '4.50 hr',
+  day: 'Monday',
+  checked: false,
+},
+{
+  label: '4.50 hr',
+  day: 'Tuesday',
+  checked: false
+},
+{
+  label: '4.50 hr',
+  day: 'Wednesday',
+  checked: false
+},
+{
+  label: '4.50 hr',
+  day: 'Thursday',
+  checked: false
+},
+{
+  label: '6.75 hr',
+  day: 'Friday',
+  checked: false
+},
 ]
